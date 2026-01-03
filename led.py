@@ -17,19 +17,26 @@ def sendData(data):
     data += '\r'
     data = data.encode('utf-8')
     ser.write(data)
-    time.sleep(0.1)
+    time.sleep(0.2)
 
 
 def recvData():
     global ser
     data = ser.readline()
+    if not data:
+        print("TIMEOUT")
+        ser.close
+        sys.exit(1)
+
     data = data.strip()
     data = data.decode('utf-8')
 
     return data
 
 
-ser = serial.Serial(port=PORT, baudrate=BAUD, parity= 'N')
+ser = serial.Serial(port=PORT, baudrate=BAUD, parity= 'N', timeout=0.5)
+time.sleep(0.1)                 # USB-UART安定待ち
+ser.reset_input_buffer()        # ゴミ破棄
 
 print("writing...")
 
@@ -41,12 +48,11 @@ for data in sys.stdin:
     sendData("rom_dwrite " + data)
     
     #受信(rx)
-    while(ser.in_waiting):
-        data = recvData()
-        if (data.startswith("E")):
-            print(data)
-            ser.close()
-            sys.exit(1)
+    data = recvData()
+    if (data.startswith("E")):
+        print(data)
+        ser.close()
+        sys.exit(1)
 
 sendData("rom_dclose")
 sendData("rom_scroll")
