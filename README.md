@@ -1,0 +1,2 @@
+# led_news_ticker
+LED電光掲示板ボード用ニュースティッカー
