@@ -8,7 +8,7 @@ import serial
 import serial.tools.list_ports
 import time
 
-PORT = "/dev/cu.UC-232AC"
+PORT = "/dev/cu.UC-232AC" # 環境に合わせて変更してください
 BAUD = 19200
 
 
