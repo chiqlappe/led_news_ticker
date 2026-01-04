@@ -62,7 +62,7 @@ def parse_bdf(filename):
 def dump(bitmap):
     for b in bitmap:
         print(f"{b:02X}", end=" ")
-    print("\n0 0") #1ドット間をあける
+    print("\n0 ") #1ドット間をあける
 
 
 def utf82jis(code):

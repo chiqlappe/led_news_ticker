@@ -8,7 +8,7 @@ import feedparser
 from datetime import datetime
 
 
-MAX_FEEDS = 5 # 出力するタイトルの最大数
+MAX_TITLES = 10 # 出力するタイトルの最大数
 
 
 def output(url, title, splitter):
@@ -20,7 +20,7 @@ def output(url, title, splitter):
         for entry in feed.entries:
             print(entry.title, end = "　"+splitter+"　")
             n += 1
-            if (n==MAX_FEEDS):
+            if (n==MAX_TITLES):
                 break
         return True
     else :
